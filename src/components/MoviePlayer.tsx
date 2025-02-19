@@ -158,46 +158,6 @@ const MoviePlayer: React.FC = () => {
 		}
 	}, [subtitleContent]);
 
-	// useEffect(() => {
-	// 	if (videoRef.current && subtitleContent) {
-	// 		const vttContent = srtToVtt(subtitleContent);
-	// 		const blob = new Blob([vttContent], { type: "text/vtt" });
-	// 		const url = URL.createObjectURL(blob);
-
-	// 		const track = document.createElement("track");
-	// 		track.kind = "subtitles";
-	// 		track.label = "English";
-	// 		track.srclang = "en";
-	// 		track.src = url;
-	// 		videoRef.current.appendChild(track);
-
-	// 		if (
-	// 			videoRef.current.textTracks &&
-	// 			videoRef.current.textTracks.length > 0
-	// 		) {
-	// 			videoRef.current.textTracks[0].mode = "showing";
-	// 		}
-	// 	}
-	// }, [subtitleContent]);
-
-	// const srtToVtt = (srt: string): string => {
-	// 	const lines = srt.split(/\r\n|\n|\r/);
-	// 	let vtt = "WEBVTT\n\n";
-
-	// 	for (let i = 0; i < lines.length; i++) {
-	// 		if (lines[i].match(/^\d+$/)) {
-	// 			const time = lines[i + 1].replace(/,/g, ".");
-	// 			const text = lines
-	// 				.slice(i + 2)
-	// 				.join("\n")
-	// 				.replace(/^\s*\n/gm, "");
-	// 			vtt += `${time} position:50% align:middle\n${text}\n\n`;
-	// 			i += lines.slice(i + 2).findIndex((line) => line === "") + 2;
-	// 		}
-	// 	}
-	// 	return vtt;
-	// };
-
 	if (!movie)
 		return (
 			<Container>

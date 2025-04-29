@@ -1,9 +1,16 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { useParams } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import axios from "axios";
 import { UserContext } from "../context/UserContext";
 import Header from "./Header";
-import { Container, Typography, Box, CircularProgress } from "@mui/material";
+import {
+	Container,
+	Typography,
+	Box,
+	CircularProgress,
+	Button,
+} from "@mui/material";
 import srt2vtt from "srt-webvtt";
 
 interface Movie {
@@ -18,22 +25,21 @@ const MoviePlayer: React.FC = () => {
 	const videoRef = useRef<HTMLVideoElement>(null);
 	const [progress, setProgress] = useState(0);
 	const [subtitleContent, setSubtitleContent] = useState<string>("");
+	const server_url = process.env.REACT_APP_SERVER_URL;
 
 	useEffect(() => {
 		const fetchMovieData = async () => {
 			try {
 				const token = localStorage.getItem("token");
 				const movieResponse = await axios.get(
-					`https://localhost:3001/movies/${encodeURIComponent(
-						title
-					)}`,
+					`${server_url}/movies/${encodeURIComponent(title)}`,
 					{
 						headers: {
 							Authorization: `Bearer ${token}`,
 						},
 					}
 				);
-				const moviePath = `https://localhost:3001/media/${movieResponse.data.path}`;
+				const moviePath = `${server_url}/media/${movieResponse.data.path}`;
 				setMovie({ ...movieResponse.data, path: moviePath });
 
 				if (userId) {
@@ -49,7 +55,7 @@ const MoviePlayer: React.FC = () => {
 		const fetchProgress = async (movieTitle: string) => {
 			try {
 				const response = await axios.get(
-					`https://localhost:3001/progress/${movieTitle}`,
+					`${server_url}/progress/${movieTitle}`,
 					{
 						headers: {
 							Authorization: `Bearer ${localStorage.getItem(
@@ -79,7 +85,7 @@ const MoviePlayer: React.FC = () => {
 		const fetchSubtitles = async (movieTitle: string) => {
 			try {
 				const response = await axios.get(
-					`https://localhost:3001/subs/subtitles/${movieTitle}/en`,
+					`${server_url}/subs/subtitles/${movieTitle}/en`,
 					{
 						headers: {
 							Authorization: `Bearer ${localStorage.getItem(
@@ -105,7 +111,7 @@ const MoviePlayer: React.FC = () => {
 					100;
 				try {
 					await axios.post(
-						`https://localhost:3001/progress/${movie?.title}`,
+						`${server_url}/progress/${movie?.title}`,
 						{ progress: newProgress },
 						{
 							headers: {
@@ -184,6 +190,15 @@ const MoviePlayer: React.FC = () => {
 						</Typography>
 					</Box>
 				)}
+				<Button
+					component={RouterLink}
+					variant="contained"
+					to="/movieslist"
+					color="primary"
+					sx={{ mb: 2 }}
+				>
+					Back to Movies List
+				</Button>
 				<video
 					width="100%"
 					controls

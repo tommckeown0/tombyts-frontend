@@ -48,7 +48,12 @@ const MoviesList: React.FC = () => {
 		<Container>
 			<Header />
 			<Box sx={{ my: 4 }}>
-				<Typography variant="h4" component="h1" gutterBottom>
+				<Typography
+					variant="h4"
+					component="h1"
+					gutterBottom
+					data-testid="movies-title-text"
+				>
 					Movies
 				</Typography>
 				{userId && (
@@ -75,12 +80,13 @@ const MoviesList: React.FC = () => {
 					<Alert severity="error">{error}</Alert>
 				) : (
 					<List>
-						{movies.map((movie) => (
+						{movies.map((movie, index) => (
 							<ListItem key={movie.title}>
 								<ListItemText>
 									<Link
 										component={RouterLink}
 										to={`/movie/${movie.title}`}
+										data-testid={`movie-link-${index}`}
 									>
 										{movie.title}
 									</Link>

@@ -53,7 +53,12 @@ const Login = () => {
 					Home
 				</Button>
 			</Box>
-			<Typography variant="h4" component="h1" gutterBottom>
+			<Typography
+				variant="h4"
+				component="h1"
+				gutterBottom
+				data-testid="login-title"
+			>
 				Login
 			</Typography>
 			<form onSubmit={handleSubmit}>
@@ -64,6 +69,7 @@ const Login = () => {
 						fullWidth
 						value={username}
 						onChange={(e) => setUsername(e.target.value)}
+						inputProps={{ "data-testid": "username-input" }}
 					/>
 				</Box>
 				<Box sx={{ mb: 2 }}>
@@ -74,6 +80,7 @@ const Login = () => {
 						fullWidth
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
+						inputProps={{ "data-testid": "password-input" }}
 					/>
 				</Box>
 				<Button
@@ -81,6 +88,7 @@ const Login = () => {
 					variant="contained"
 					color="primary"
 					fullWidth
+					data-testid="login-submit-button"
 				>
 					Login
 				</Button>

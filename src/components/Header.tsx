@@ -26,7 +26,12 @@ const Header: React.FC = () => {
 						Logout
 					</Button>
 				) : (
-					<Button color="inherit" component={RouterLink} to="/login">
+					<Button
+						color="inherit"
+						component={RouterLink}
+						to="/login"
+						data-testid="login-button"
+					>
 						Login
 					</Button>
 				)}

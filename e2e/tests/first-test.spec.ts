@@ -1,4 +1,5 @@
-import { test, expect, Page } from "@playwright/test";
+import { test, Page } from "@playwright/test";
+import MoviePage from "../pages/MoviePage";
 
 const username = process.env.USER1;
 const password = process.env.PASSWORD1;
@@ -28,25 +29,6 @@ class LoginPage {
 	}
 }
 
-class MoviePage {
-	// Cosntructor
-	constructor(private page: Page) {}
-
-	// Locators
-	readonly movieLink = "data-testid=movie-link-0";
-
-	// Methods
-	async movieHasTitle(title: RegExp) {
-		await this.page.waitForSelector(this.movieLink);
-		await expect(this.page.locator(this.movieLink)).toHaveText(title);
-	}
-
-	async clickMovieLink() {
-		await this.page.waitForSelector(this.movieLink);
-		await this.page.locator(this.movieLink).click();
-	}
-}
-
 test.beforeEach(async ({ page }) => {
 	await page.goto("");
 });
@@ -72,7 +54,7 @@ test("has title", async ({ page }) => {
 	// );
 	// await page.locator("data-testid=movie-link-0").click();
 
-	await page.waitForTimeout(5000);
+	await page.waitForTimeout(2000);
 	// Expect a title "to contain" a substring.
 	// await expect(page).toHaveTitle(/Playwright/);
 });

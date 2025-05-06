@@ -22,9 +22,9 @@ jobs:
               run: npx playwright install --with-deps
             - name: Create .env file
               run: |
-                  echo "USER1"=${{ secrets.USER1 }}" >> .env
-                  echo "PASSWORD1"=${{ secrets.PASSWORD1 }}" >> .env
-                  echo "BASE_URL"=${{ secrets.BASE_URL }}" >> .env
+                  echo "USER1=${{ secrets.USER1 }}" >> .env
+                  echo "PASSWORD1=${{ secrets.PASSWORD1 }}" >> .env
+                  echo "BASE_URL=${{ secrets.BASE_URL }}" >> .env
             - name: Run Playwright tests
               run: npx playwright test
             - uses: actions/upload-artifact@v4
